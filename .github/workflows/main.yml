@@ -34,12 +34,12 @@ jobs:
     - name: Create Azure App Service Plan
       uses: Azure/cli@1.0.4
       with:
-        inlineScript: az appservice plan create -g ${{ env.RESOURCE_GROUP_NAME }} -N ${{ env.APP_SERVICE_PLAN }} --is-linux
+        inlineScript: az appservice plan create --resource-group ${{ env.RESOURCE_GROUP_NAME }} --name ${{ env.APP_SERVICE_PLAN }} --is-linux
 
     - name: Create Azure App Service
       uses: Azure/cli@1.0.4
       with:
-        inlineScript: az webapp create -g ${{ env.RESOURCE_GROUP_NAME }} -p ${{ env.APP_SERVICE_PLAN }} -n ${{ env.APP_SERVICE }} --runtime "NODE|12-lts"
+        inlineScript: az webapp create --resource-group ${{ env.RESOURCE_GROUP_NAME }} --plan ${{ env.APP_SERVICE_PLAN }} --name ${{ env.APP_SERVICE }} --runtime "NODE|12-lts"
 
     - name: 'Deploy to Azure WebApp'
       uses: azure/webapps-deploy@v2
